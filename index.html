@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Flipping Card</title>
+
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+
+body {
+    min-height: 100vh;
+}
+
+
+/* Main Section */
+
+.card-section {
+    position: relative;
+
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #121321;
+
+    perspective: 1000px;
+
+    overflow: hidden;
+}
+
+
+/* Background Circle 1 */
+
+.card-section::before {
+    content: "";
+
+    position: absolute;
+
+    width: 240px;
+    height: 240px;
+
+    border-radius: 50%;
+
+    transform: translate(-150px, -100px);
+
+    background: linear-gradient(
+        90deg,
+        #9c27b0,
+        #f3f5f5
+    );
+}
+
+
+/* Background Circle 2 */
+
+.card-section::after {
+    content: "";
+
+    position: absolute;
+
+    width: 240px;
+    height: 240px;
+
+    border-radius: 50%;
+
+    transform: translate(150px, 100px);
+
+    background: linear-gradient(
+        90deg,
+        #9c27b0,
+        #f3f5f5
+    );
+}
+
+
+/* Card Container */
+
+.card-container {
+    position: relative;
+
+    width: 375px;
+    height: 225px;
+
+    z-index: 10;
+
+    transform-style: preserve-3d;
+
+    transition: transform 0.6s ease;
+}
+
+
+/* FLIP */
+
+.card-container:hover {
+    transform: rotateY(180deg);
+}
+
+
+/* Common Card */
+
+.card {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 25px;
+
+    border-radius: 25px;
+
+    color: white;
+
+    background: rgba(255, 255, 255, 0.1);
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    backdrop-filter: blur(25px);
+
+    box-shadow:
+        0 25px 45px rgba(0, 0, 0, 0.25);
+
+    backface-visibility: hidden;
+
+    transform-style: preserve-3d;
+}
+
+
+/* Front */
+
+.front {
+    transform: rotateY(0deg);
+}
+
+
+/* Header */
+
+.card-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+/* Brand */
+
+.brand {
+    display: flex;
+
+    align-items: center;
+}
+
+
+.brand h3 {
+    font-size: 16px;
+
+    font-weight: 400;
+}
+
+
+/* MasterCard Logo */
+
+.master-logo {
+    position: relative;
+
+    width: 48px;
+    height: 30px;
+
+    margin-right: 10px;
+}
+
+
+.master-logo span {
+    position: absolute;
+
+    width: 28px;
+    height: 28px;
+
+    border-radius: 50%;
+}
+
+
+.master-logo span:first-child {
+    left: 0;
+
+    background: #ff5f00;
+}
+
+
+.master-logo span:last-child {
+    right: 0;
+
+    background: #eb001b;
+
+    opacity: 0.8;
+}
+
+
+/* Chip */
+
+.chip {
+    width: 50px;
+    height: 38px;
+
+    border-radius: 7px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #d6d6d6,
+            #888,
+            #ddd
+        );
+
+    position: relative;
+}
+
+
+.chip::before {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    top: 0;
+
+    width: 2px;
+    height: 100%;
+
+    background: #777;
+}
+
+
+.chip::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 50%;
+
+    width: 100%;
+    height: 2px;
+
+    background: #777;
+}
+
+
+/* Card Information */
+
+.card-info {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-end;
+
+    margin-top: 40px;
+}
+
+
+.card-info small {
+    font-size: 9px;
+
+    display: block;
+
+    margin-bottom: 5px;
+}
+
+
+.card-info h2 {
+    font-size: 18px;
+
+    font-weight: 400;
+
+    letter-spacing: 1px;
+}
+
+
+.card-info p {
+    margin-top: 18px;
+
+    font-size: 14px;
+
+    letter-spacing: 1px;
+}
+
+
+.valid {
+    text-align: center;
+}
+
+
+.valid strong {
+    font-size: 14px;
+
+    font-weight: 400;
+}
+
+
+/* BACK */
+
+.back {
+    transform: rotateY(180deg);
+
+    padding: 15px 25px 25px;
+}
+
+
+.service {
+    font-size: 8px;
+}
+
+
+/* Magnetic Strip */
+
+.magnetic-strip {
+    position: absolute;
+
+    top: 40px;
+    left: 0;
+
+    width: 100%;
+    height: 45px;
+
+    background: #000;
+}
+
+
+/* Signature */
+
+.signature {
+    position: relative;
+
+    margin-top: 80px;
+
+    width: 85%;
+    height: 40px;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    align-items: center;
+
+    border-radius: 6px;
+
+    background:
+        repeating-linear-gradient(
+            #fff,
+            #fff 3px,
+            #eee 3px,
+            #eee 9px
+        );
+}
+
+
+.signature span {
+    margin-right: -30px;
+
+    padding: 4px 7px;
+
+    color: #000;
+
+    background: white;
+
+    border-radius: 4px;
+
+    font-size: 12px;
+}
+
+
+/* Back Description */
+
+.description {
+    margin-top: 15px;
+
+    font-size: 8px;
+
+    line-height: 1.5;
+}
+
+
+/* ------------------------------------------------------------------
+   3D GUARD  (the person who covers his eyes)
+------------------------------------------------------------------ */
+
+.guard {
+    position: absolute;
+
+    top: 50%;
+    left: calc(50% + 225px);
+
+    width: 280px;
+    height: 380px;
+
+    margin-top: -190px;
+
+    z-index: 10;
+
+    /* never blocks the card's hover */
+    pointer-events: none;
+}
+
+
+.guard canvas {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+}
+
+
+.guard-status {
+    position: absolute;
+
+    left: 50%;
+    bottom: 6px;
+
+    transform: translateX(-50%);
+
+    padding: 6px 14px;
+
+    border-radius: 999px;
+
+    white-space: nowrap;
+
+    font-size: 12px;
+    font-weight: 400;
+
+    color: #fff;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    backdrop-filter: blur(10px);
+}
+
+
+.guard-status.swap {
+    animation: status-swap 0.35s ease;
+}
+
+
+@keyframes status-swap {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+
+/* Not enough room beside the card: stack the guard underneath it */
+
+@media (max-width: 960px) {
+
+    .card-section {
+        flex-direction: column;
+
+        gap: 8px;
+
+        padding: 32px 16px;
+    }
+
+    .guard {
+        position: relative;
+
+        top: auto;
+        left: auto;
+
+        width: 260px;
+        height: 300px;
+
+        margin-top: 0;
+    }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+    .guard-status.swap {
+        animation: none;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <section class="card-section">
+
+        <div class="card-container">
+
+            <!-- FRONT -->
+            <div class="card front">
+
+                <div class="card-header">
+
+                    <div class="brand">
+                        <div class="master-logo">
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <h3>Master Card</h3>
+                    </div>
+
+                    <div class="chip"></div>
+
+                </div>
+
+                <div class="card-info">
+
+                    <div>
+                        <small>Card Number</small>
+                        <h2>8050 2030 3020 5040</h2>
+
+                        <p>LUCKY RAJ</p>
+                    </div>
+
+                    <div class="valid">
+                        <small>VALID THRU</small>
+                        <strong>05/28</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- BACK -->
+            <div class="card back">
+
+                <small class="service">
+                    For customer service call +91 98765 43210
+                </small>
+
+                <div class="magnetic-strip"></div>
+
+                <div class="signature">
+                    <span>005</span>
+                </div>
+
+                <p class="description">
+                    This card is created using HTML and CSS.
+                    Hover over the card to see the 3D flipping animation.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- 3D GUARD -->
+        <div class="guard" id="guard" aria-hidden="true">
+            <canvas id="guardCanvas"></canvas>
+            <div class="guard-status" id="guardStatus">🛡️ Guarding your card</div>
+        </div>
+
+    </section>
+
+
+    <!-- Three.js (r128) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+(function () {
+    'use strict';
+
+    const stage    = document.getElementById('guard');
+    const canvas   = document.getElementById('guardCanvas');
+    const statusEl = document.getElementById('guardStatus');
+    const cardEl   = document.querySelector('.card-container');
+
+    function hideGuard() { if (stage) stage.style.display = 'none'; }
+
+    if (!stage || !canvas || !cardEl || typeof THREE === 'undefined') { hideGuard(); return; }
+
+    let renderer;
+    try {
+        renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+    } catch (err) { hideGuard(); return; }
+
+    const reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setClearColor(0x000000, 0);
+
+    const scene  = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
+
+
+    /* ----------------------------------------------------------------
+       Lights
+    ---------------------------------------------------------------- */
+    scene.add(new THREE.HemisphereLight(0xe4e8ff, 0x2b1a4f, 0.85));
+
+    const keyLight = new THREE.DirectionalLight(0xffffff, 0.95);
+    keyLight.position.set(-3, 5, 6);
+    scene.add(keyLight);
+
+    const rimLight = new THREE.PointLight(0xc04cff, 1.4, 40);
+    rimLight.position.set(4, 3, -3);
+    scene.add(rimLight);
+
+
+    /* ----------------------------------------------------------------
+       Helpers
+    ---------------------------------------------------------------- */
+    const std = (color, rough) => new THREE.MeshStandardMaterial({
+        color: color,
+        roughness: rough === undefined ? 0.65 : rough,
+        metalness: 0.05
+    });
+
+    const M = {
+        skin:  std(0xd29a6a, 0.7),
+        nose:  std(0xc38859, 0.7),
+        hair:  std(0x1a1828, 0.5),
+        shirt: std(0x9c27b0, 0.55),
+        pants: std(0x2a2f55, 0.75),
+        shoe:  std(0xf3f5f5, 0.45),
+        white: std(0xffffff, 0.3),
+        dark:  std(0x101018, 0.3),
+        mouth: new THREE.MeshBasicMaterial({ color: 0x7a2f2f }),
+        blush: new THREE.MeshBasicMaterial({ color: 0xff7a9c, transparent: true, opacity: 0.25 })
+    };
+
+    // Ellipsoid: ball(radius, material, [sx, sy, sz], [x, y, z])
+    function ball(r, mat, scale, pos) {
+        const m = new THREE.Mesh(new THREE.SphereGeometry(r, 24, 16), mat);
+        m.scale.set(scale[0], scale[1], scale[2]);
+        m.position.set(pos[0], pos[1], pos[2]);
+        return m;
+    }
+
+    // Tapered cylinder whose base sits at the origin and grows along +Y
+    function limb(rBase, rTip, len, mat) {
+        const g = new THREE.CylinderGeometry(rTip, rBase, len, 18);
+        g.translate(0, len / 2, 0);
+        return new THREE.Mesh(g, mat);
+    }
+
+
+    /* ----------------------------------------------------------------
+       Pedestal
+    ---------------------------------------------------------------- */
+    const pedestal = new THREE.Mesh(
+        new THREE.CylinderGeometry(1.5, 1.55, 0.1, 48),
+        new THREE.MeshStandardMaterial({ color: 0x1b1d38, roughness: 0.4, metalness: 0.3 })
+    );
+    pedestal.position.y = -0.05;
+    scene.add(pedestal);
+
+    const ringMat = new THREE.MeshBasicMaterial({ color: 0xc44be0, transparent: true, opacity: 0.85 });
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(1.5, 0.03, 12, 64), ringMat);
+    ring.rotation.x = Math.PI / 2;
+    scene.add(ring);
+
+    // soft blob shadow under the feet
+    (function () {
+        const c = document.createElement('canvas');
+        c.width = c.height = 64;
+        const ctx = c.getContext('2d');
+        const grd = ctx.createRadialGradient(32, 32, 2, 32, 32, 32);
+        grd.addColorStop(0, 'rgba(0,0,0,0.55)');
+        grd.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = grd;
+        ctx.fillRect(0, 0, 64, 64);
+
+        const shadow = new THREE.Mesh(
+            new THREE.PlaneGeometry(2.4, 2.4),
+            new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(c), transparent: true, depthWrite: false })
+        );
+        shadow.rotation.x = -Math.PI / 2;
+        shadow.position.y = 0.012;
+        scene.add(shadow);
+    })();
+
+
+    /* ----------------------------------------------------------------
+       The person
+    ---------------------------------------------------------------- */
+    const person = new THREE.Group();
+    scene.add(person);
+
+    // legs + shoes
+    [-1, 1].forEach(function (s) {
+        const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.14, 1.08, 18), M.pants);
+        leg.position.set(s * 0.24, 0.68, 0);
+        person.add(leg);
+        person.add(ball(0.2, M.shoe, [1, 0.55, 1.6], [s * 0.24, 0.11, 0.1]));
+    });
+
+    // hips, torso, rounded shoulders
+    person.add(ball(0.5, M.pants, [1, 0.5, 0.68], [0, 1.22, 0]));
+
+    const torso = new THREE.Mesh(new THREE.CylinderGeometry(0.56, 0.47, 1.3, 28), M.shirt);
+    torso.position.y = 1.85;
+    torso.scale.z = 0.66;
+    person.add(torso);
+
+    person.add(ball(0.56, M.shirt, [1, 0.3, 0.66], [0, 2.48, 0]));
+
+    // neck
+    const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.13, 0.3, 16), M.skin);
+    neck.position.y = 2.6;
+    person.add(neck);
+
+
+    /* ---- head ---- */
+    const HEAD_Y = 2.66;
+    const head = new THREE.Group();
+    head.position.set(0, HEAD_Y, 0);
+    person.add(head);
+
+    head.add(ball(0.52, M.skin, [1, 1.02, 1], [0, 0.5, 0]));
+
+    // hair cap, tilted so the forehead stays visible
+    const hair = new THREE.Mesh(
+        new THREE.SphereGeometry(0.55, 28, 16, 0, Math.PI * 2, 0, Math.PI * 0.52),
+        M.hair
+    );
+    hair.position.set(0, 0.54, -0.02);
+    hair.rotation.x = -0.42;
+    head.add(hair);
+
+    // ears, nose, cheeks
+    [-1, 1].forEach(function (s) {
+        head.add(ball(0.09, M.skin, [0.6, 1, 1], [s * 0.51, 0.47, 0]));
+        head.add(ball(0.07, M.blush, [1, 0.8, 0.3], [s * 0.3, 0.42, 0.41]));
+    });
+    head.add(ball(0.06, M.nose, [1, 1, 0.9], [0, 0.44, 0.515]));
+
+    // eyes (white + pupil) and brows
+    const eyes = [], pupils = [], brows = [];
+    [-1, 1].forEach(function (s) {
+        const eye = new THREE.Group();
+        eye.position.set(s * 0.17, 0.56, 0.455);
+        eye.add(ball(0.085, M.white, [1, 1.15, 0.55], [0, 0, 0]));
+
+        const pupil = ball(0.048, M.dark, [1, 1, 0.35], [0, -0.005, 0.037]);
+        eye.add(pupil);
+
+        head.add(eye);
+        eyes.push(eye);
+        pupils.push(pupil);
+
+        const brow = new THREE.Mesh(new THREE.BoxGeometry(0.17, 0.03, 0.04), M.hair);
+        brow.position.set(s * 0.17, 0.665, 0.455);
+        brow.rotation.z = -s * 0.12;
+        head.add(brow);
+        brows.push(brow);
+    });
+
+    // smile
+    const mouth = new THREE.Mesh(new THREE.TorusGeometry(0.085, 0.014, 8, 20, Math.PI), M.mouth);
+    mouth.rotation.z = Math.PI;
+    mouth.position.set(0, 0.36, 0.487);
+    head.add(mouth);
+
+
+    /* ---- arms (two-bone IK) ---- */
+    const UP = new THREE.Vector3(0, 1, 0);
+    const AXIS_X = new THREE.Vector3(1, 0, 0);
+    const L1 = 0.72, L2 = 0.68;   // upper arm, forearm
+
+    function makeHand(side) {
+        const h = new THREE.Group();
+
+        // palm
+        h.add(ball(0.15, M.skin, [1.7, 1, 0.55], [0, 0.12, 0]));
+
+        // four fingers
+        [[-0.17, 0.17], [-0.06, 0.2], [0.06, 0.2], [0.17, 0.17]].forEach(function (f) {
+            const finger = limb(0.04, 0.032, f[1], M.skin);
+            finger.position.set(f[0], 0.2, 0);
+            h.add(finger);
+        });
+
+        // thumb
+        const thumb = limb(0.045, 0.035, 0.17, M.skin);
+        thumb.position.set(-side * 0.22, 0.08, 0);
+        thumb.rotation.z = side * 0.8;
+        h.add(thumb);
+
+        return h;
+    }
+
+    function makeArm(side) {
+        const S = new THREE.Vector3(side * 0.64, 2.36, 0);
+
+        const upper = new THREE.Group();
+        upper.position.copy(S);
+        upper.add(limb(0.125, 0.11, L1, M.skin));
+        upper.add(limb(0.175, 0.16, 0.42, M.shirt));       // T-shirt sleeve
+
+        const fore = new THREE.Group();
+        fore.add(limb(0.105, 0.085, L2, M.skin));
+        fore.add(ball(0.115, M.skin, [1, 1, 1], [0, 0, 0])); // elbow
+
+        const hand = makeHand(side);
+
+        person.add(upper);
+        person.add(fore);
+        person.add(hand);
+        person.add(ball(0.19, M.shirt, [1, 1, 1], [S.x, S.y, S.z])); // shoulder
+
+        // hanging hand: fingers down, palm against the thigh
+        const restQ = new THREE.Quaternion()
+            .setFromAxisAngle(UP, side * Math.PI / 2)
+            .multiply(new THREE.Quaternion().setFromAxisAngle(AXIS_X, Math.PI));
+
+        return { side: side, S: S, E: new THREE.Vector3(), H: new THREE.Vector3(),
+                 upper: upper, fore: fore, hand: hand, restQ: restQ };
+    }
+
+    const armL = makeArm(1);    // his left hand: the one that covers his eyes
+    const armR = makeArm(-1);   // his right hand: just hangs
+
+    const _dir = new THREE.Vector3();
+    const _perp = new THREE.Vector3();
+    const _tmp = new THREE.Vector3();
+
+    // Places elbow + wrist so the arm reaches `target`, bending toward `pole`
+    function solveArm(arm, target, pole) {
+        _dir.copy(target).sub(arm.S);
+        const d = _dir.length();
+        const dc = Math.min(Math.max(d, Math.abs(L1 - L2) + 0.01), (L1 + L2) * 0.999);
+        _dir.normalize();
+
+        const a = (L1 * L1 - L2 * L2 + dc * dc) / (2 * dc);
+        const h = Math.sqrt(Math.max(L1 * L1 - a * a, 0));
+
+        _perp.copy(pole).addScaledVector(_dir, -pole.dot(_dir));
+        if (_perp.lengthSq() < 1e-6) _perp.set(0, 0, -1);
+        _perp.normalize();
+
+        arm.E.copy(arm.S).addScaledVector(_dir, a).addScaledVector(_perp, h);
+        arm.H.copy(arm.S).addScaledVector(_dir, dc);
+
+        arm.upper.quaternion.setFromUnitVectors(UP, _tmp.copy(arm.E).sub(arm.S).normalize());
+        arm.fore.position.copy(arm.E);
+        arm.fore.quaternion.setFromUnitVectors(UP, _tmp.copy(arm.H).sub(arm.E).normalize());
+        arm.hand.position.copy(arm.H);
+    }
+
+
+    /* ----------------------------------------------------------------
+       Camera fitting
+    ---------------------------------------------------------------- */
+    function resize() {
+        const w = stage.clientWidth  || 280;
+        const h = stage.clientHeight || 380;
+
+        renderer.setSize(w, h, false);
+        camera.aspect = w / h;
+
+        const tanHalf = Math.tan((camera.fov / 2) * Math.PI / 180);
+        const distH = 2.47 / tanHalf;                          // fit height
+        const distW = (3.4 / 2) / (tanHalf * camera.aspect);   // fit width
+        const dist = Math.max(distH, distW);
+
+        camera.position.set(0, 2.2 + (dist - distH) * 0.2, dist);
+        camera.lookAt(0, 1.8, 0);
+        camera.updateProjectionMatrix();
+    }
+
+    resize();
+    if (window.ResizeObserver) new ResizeObserver(resize).observe(stage);
+    window.addEventListener('resize', resize);
+
+
+    /* ----------------------------------------------------------------
+       Behaviour
+         idle  -> stands, breathes, looks around
+         peek  -> turns to the card ("trying to see the number")
+         cover -> raises his hand over his eyes
+       Triggered when the card is hovered / touched, and also every
+       few seconds on its own so he keeps "trying".
+    ---------------------------------------------------------------- */
+    const IDLE = 'idle', PEEK = 'peek', COVER = 'cover';
+    const CAPTIONS = {
+        idle:  '🛡️ Guarding your card',
+        peek:  '👀 Someone is looking…',
+        cover: '🙈 Eyes covered, number is safe!'
+    };
+
+    let state = IDLE;
+    let stateTimer = 0;
+    let autoMode = false;
+    let hoverActive = false;
+    let offTimer = 0;        // time since the pointer left the card
+    let releaseTimer = 0;
+    let nextGlance = reduceMotion ? Infinity : 4;
+
+    function setState(s) {
+        state = s;
+        stateTimer = 0;
+        statusEl.textContent = CAPTIONS[s];
+        statusEl.classList.remove('swap');
+        void statusEl.offsetWidth;          // restart the CSS animation
+        statusEl.classList.add('swap');
+    }
+
+    function runStateMachine(dt) {
+        stateTimer += dt;
+
+        // :hover stays in sync with the CSS flip (also on touch screens)
+        const hovered = cardEl.matches(':hover');
+        if (hovered) { hoverActive = true; offTimer = 0; }
+        else { offTimer += dt; if (offTimer > 0.3) hoverActive = false; }
+
+        if (hoverActive) {
+            autoMode = false;
+            releaseTimer = 0;
+            nextGlance = 7;
+            if (state === IDLE) setState(PEEK);
+            else if (state === PEEK && stateTimer > 0.35) setState(COVER);
+            return;
+        }
+
+        releaseTimer += dt;
+
+        if (state === IDLE) {
+            nextGlance -= dt;
+            if (nextGlance <= 0) { autoMode = true; setState(PEEK); }
+        } else if (state === PEEK) {
+            if (stateTimer > (autoMode ? 0.9 : 0.35)) setState(COVER);
+        } else if (state === COVER) {
+            const done = autoMode ? stateTimer > 2.4 : releaseTimer > 0.5;
+            if (done) { setState(IDLE); nextGlance = 6 + Math.random() * 4; }
+        }
+    }
+
+
+    /* ----------------------------------------------------------------
+       Animation
+    ---------------------------------------------------------------- */
+    const damp = (a, b, k, dt) => a + (b - a) * (1 - Math.exp(-k * dt));
+
+    const cPurple = new THREE.Color(0xc44be0);
+    const cGreen  = new THREE.Color(0x4ade80);
+
+    const REST_L = new THREE.Vector3(0.8, 0.98, 0.08);
+    const REST_R = new THREE.Vector3(-0.8, 0.98, 0.08);
+    const POLE_REST_L  = new THREE.Vector3(0.35, -0.1, -1);
+    const POLE_REST_R  = new THREE.Vector3(-0.35, -0.1, -1);
+    const POLE_COVER   = new THREE.Vector3(1, -0.85, -0.1);
+    const PALM_OFFSET  = new THREE.Vector3(0, 0.46, 0.68);   // wrist position in head space
+
+    const target = new THREE.Vector3();
+    const pole   = new THREE.Vector3();
+    const handQ  = new THREE.Quaternion();
+
+    let time = 0;
+    let yaw = 0.45, pitch = 0, bodyYaw = -0.5;
+    let cover = 0, peek = 0;
+    let blinkTimer = 2, blinkT = 0;
+
+    function update(dt) {
+        time += dt;
+        runStateMachine(dt);
+
+        const sway = reduceMotion ? 0 : 1;
+
+        // targets for the current state
+        let tYaw, tPitch, tBody;
+        if (state === IDLE) {
+            tYaw   = 0.45 + Math.sin(time * 0.45) * 0.14 * sway;
+            tPitch = Math.sin(time * 0.7) * 0.03 * sway;
+            tBody  = -0.5;
+        } else if (state === PEEK) {
+            tYaw = -0.32; tPitch = -0.05; tBody = -0.62;
+        } else {
+            tYaw = -0.12; tPitch = 0.14; tBody = -0.56;
+        }
+
+        yaw     = damp(yaw,     tYaw,   6, dt);
+        pitch   = damp(pitch,   tPitch, 6, dt);
+        bodyYaw = damp(bodyYaw, tBody,  5, dt);
+        cover   = damp(cover, state === COVER ? 1 : 0, 7, dt);
+        peek    = damp(peek,  state === PEEK  ? 1 : 0, 10, dt);
+
+        person.rotation.y = bodyYaw;
+
+        // breathing + head pose
+        const breathe = Math.sin(time * 1.9) * 0.012 * sway;
+        head.position.y = HEAD_Y + breathe;
+        head.rotation.set(pitch, yaw, 0);
+
+        // blinking
+        blinkTimer -= dt;
+        if (blinkTimer <= 0 && !reduceMotion) { blinkT = 0.16; blinkTimer = 2.2 + Math.random() * 3; }
+        let lid = 1;
+        if (blinkT > 0) { blinkT -= dt; lid = Math.max(0.08, Math.abs(blinkT / 0.16 * 2 - 1)); }
+
+        eyes.forEach(function (e) { e.scale.y = lid; });
+        pupils.forEach(function (p) { p.position.x = -0.03 * peek; });
+        brows.forEach(function (b) { b.position.y = 0.665 + peek * 0.035; });
+        M.blush.opacity = 0.25 + 0.4 * cover;
+
+        // left arm: rest pose -> hand over the eyes
+        const e = cover * cover * (3 - 2 * cover);
+        const bump = Math.sin(Math.PI * e);
+
+        target.copy(PALM_OFFSET).applyQuaternion(head.quaternion).add(head.position);   // cover pose
+        target.lerpVectors(REST_L, target, e);
+        target.z += bump * 0.3;                 // swing out in front of the chest
+        target.x += bump * 0.12;
+        target.x += Math.sin(time * 1.3) * 0.015 * sway * (1 - e);
+
+        pole.lerpVectors(POLE_REST_L, POLE_COVER, e);
+        solveArm(armL, target, pole);
+
+        handQ.copy(armL.restQ).slerp(head.quaternion, e);
+        armL.hand.quaternion.copy(handQ);
+
+        // right arm: relaxed
+        target.copy(REST_R);
+        target.x += Math.sin(time * 1.1 + 1) * 0.015 * sway;
+        target.z += Math.sin(time * 0.9) * 0.02 * sway;
+        solveArm(armR, target, POLE_REST_R);
+        armR.hand.quaternion.copy(armR.restQ);
+
+        // pedestal ring pulses, and turns green once the eyes are covered
+        ringMat.color.copy(cPurple).lerp(cGreen, cover);
+        ringMat.opacity = 0.75 + Math.sin(time * 2) * 0.15 * sway;
+    }
+
+    const clock = new THREE.Clock();
+
+    function frame() {
+        requestAnimationFrame(frame);
+        update(Math.min(clock.getDelta(), 0.05));
+        renderer.render(scene, camera);
+    }
+
+    setState(IDLE);
+    frame();
+
+})();
+    </script>
+
+</body>
+</html>
